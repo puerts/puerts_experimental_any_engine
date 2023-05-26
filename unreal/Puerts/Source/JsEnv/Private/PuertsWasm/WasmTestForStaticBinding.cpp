@@ -6,7 +6,7 @@
  * which is part of this source code package.
  */
 
-#if WITH_WASM
+#if USE_WASM3
 #include <array>
 #include <tuple>
 #include "WasmRuntime.h"
@@ -16,44 +16,15 @@
 #include "CoreMinimal.h"
 #include "Binding.hpp"
 #include "UEDataBinding.hpp"
+#include "Kismet/KismetMathLibrary.h"
 
-class TestFunction
+float atan2_ue_bind(float X, float Y)
 {
-public:
-    static FVector Test_GetActorLocation(AActor* Actor)
-    {
-        return Actor->K2_GetActorLocation();
-    }
+    return UKismetMathLibrary::Atan2(X, Y);
+}
 
-    static int Test_Fib(int a)
-    {
-        if (a <= 2)
-            return 1;
-        return Test_Fib(a - 1) + Test_Fib(a - 2);
-    }
+WASM_BEGIN_LINK_GLOBAL(TestMath, 0)
+WASM_LINK_GLOBAL(atan2_ue_bind)
+WASM_END_LINK_GLOBAL(TestMath, 0)
 
-    static float Test_DistanceSqr(const FVector& InVector)
-    {
-        return InVector.X * InVector.X + InVector.Y * InVector.Y + InVector.Z * InVector.Z;
-    }
-};
-
-UsingCppType(TestFunction);
-UsingUStruct(FVector);
-UsingUClass(AActor);
-
-struct AutoRegisterForUEExtension11
-{
-    AutoRegisterForUEExtension11()
-    {
-        {
-            puerts::DefineClass<TestFunction>()
-                .Function("Test_GetActorLocation", MakeFunction(&TestFunction::Test_GetActorLocation))
-                .Function("Test_Fib", MakeFunction(&TestFunction::Test_Fib))
-                .Function("Test_DistanceSqr", MakeFunction(&TestFunction::Test_DistanceSqr))
-                .Register();
-        }
-    }
-};
-AutoRegisterForUEExtension11 _AutoRegisterForUEExtension1__;
 #endif
