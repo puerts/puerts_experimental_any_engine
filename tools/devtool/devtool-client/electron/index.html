@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;;
+            }
+            .connector {
+                transform: scale(2)
+            }
+        </style>
+    </head>
+    <body>
+        <div class="connector">
+            <div>
+                <input id="url" type="text" value="localhost:9222" id="url" />
+                <button id="connect">Connect</button>
+            </div>
+            <div id="message" style="color:red">
+
+            </div>
+        </div>
+        <script>
+            window.RECONNECT = function(url) {
+                if (!url.match(/[\w\d\.]+:(\d)+/)) throw new Error('invalid url');
+                titanInspector.connect(url);
+            }
+            document.getElementById('connect').addEventListener('click', (e) => {
+                const url = document.getElementById("url").value;
+                try {
+                    RECONNECT(url)
+                } catch(e) {
+                    document.getElementById("message").innerHTML = e.message
+                }
+            })
+        </script>
+    </body>
+</html>

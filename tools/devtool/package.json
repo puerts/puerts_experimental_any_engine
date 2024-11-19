@@ -1,0 +1,24 @@
+{
+    "name": "puerts-devtool",
+    "version": "1.0.0",
+    "description": "",
+    "main": "devtool-client/electron/app.js",
+    "scripts": {
+      "asar": "cd ./devtool-client && asar p ./front_end ./electron/front_end.asar",
+      "test": "electron ./devtool-client/electron"
+    },
+    "author": "",
+    "license": "BSD-3-Clause",
+    "devDependencies": {
+      "@electron/asar": "^3.2.10",
+      "@electron/packager": "^18.3.3",
+      "electron": "^31.3.1",
+      "install": "^0.13.0",
+      "npm": "^10.8.2"
+    },
+    "dependencies": {
+      "mkdirp": "^3.0.1",
+      "chrome-remote-interface": "^0.33.2"
+    }
+  }
+  

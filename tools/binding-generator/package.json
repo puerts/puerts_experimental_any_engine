@@ -1,0 +1,10 @@
+{
+    "name": "puerts-binding-generator",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "generate": "/cppast.net/PuertsCppGenerator.exe -c binding.config.js"
+    },
+    "author": "",
+    "license": "BSD-3-Clause"
+}
